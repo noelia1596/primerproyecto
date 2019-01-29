@@ -36,7 +36,7 @@ input, textarea {
      By default, textareas have a monospace font */
   font: 1em sans-serif;
   /* To give the same size to all text fields */
-  width: 300px;
+  
   box-sizing: border-box;
   /* To harmonize the look & feel of text field border */
   border: 1px solid #999;
@@ -79,11 +79,15 @@ input[type="submit"], input[type="reset"] {
 #enviar{
     
   /* To make sure that all labels have the same size and are properly aligned */
-
- 
   text-align: center;
-  width: 392px;
-
+  width: 40px !important;
+}
+h2{
+    
+    color: rgb(122, 156, 219);
+}
+.colorName{
+    color: rgb(122, 156, 219);
 }
 
   </style>
@@ -93,14 +97,17 @@ input[type="submit"], input[type="reset"] {
   <form action="" method="post" id="formulario">
       <h2>Investiguemos</h2>
   </br>
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" class="name" name="user_name">
+  <div class="esconder2">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" class="name" name="user_name">
+    </div>
+    </br>
+        <input type="button" value="enviar" class="enviar">
+    </br>
+    </br>
   </div>
-</br>
-  <input type="button" value="enviar" class="enviar">
-</br>
-</br>
+  
 <div class="esconder">
    
   <div>
@@ -109,13 +116,13 @@ input[type="submit"], input[type="reset"] {
     <input type="PeliMala" class="PeliMala" name="PeliMala">
   </div>
 </br>
-  <label for="pelis">Puntuacion:</label>
-      <select name="pelis" class="puntuacion">
-  <option value="1">*</option>
-  <option value="2">**</option>
-  <option value="3">***</option>
-  <option value="4">****</option>
-  <option value="5">*****</option>
+  <label for="pelis1">Puntuacion:</label>
+      <select name="pelis" class="puntuacion1">
+  <option name= "estrellas" value="1 estrellas">*</option>
+  <option name= "estrellas" value="2 estrellas">**</option>
+  <option name= "estrellas" value="3 estrellas">***</option>
+  <option name= "estrellas" value="4 estrellas">****</option>
+  <option name= "estrellas" value="5 estrellas">*****</option>
 </select>
 </br>
 </br>
@@ -124,21 +131,21 @@ input[type="submit"], input[type="reset"] {
     <input type="PeliFav" class="PeliFav" name="PeliFav">
   </div>
     <div>
-        <label for="pelis">Puntuacion:</label>
-        <select name="pelis" class="puntuacion">
-        <option value="1">*</option>
-        <option value="2">**</option>
-        <option value="3">***</option>
-        <option value="4">****</option>
-        <option value="5">*****</option>
+        <label for="pelis2">Puntuacion:</label>
+        <select name="pelis" class="puntuacion2">
+        <option name = "puntuaciones" value="1 estrellas">*</option>
+        <option name = "puntuaciones" value="2 estrellas">**</option>
+        <option name = "puntuaciones" value="3 estrellas">***</option>
+        <option name = "puntuaciones" value="4 estrellas">****</option>
+        <option name = "puntuaciones" value="5 estrellas">*****</option>
       </select>
       </br>
       </br>
     </div>
    
   <div>
-    <label for="msg">Destacar:</label>
-    <textarea class="msg" name="user_message"></textarea>
+    <label for="msg">Comentarios:</label>
+    <textarea class="msg" name=""></textarea>
   </div>
     <div><input type="submit" value="Submit"></div>
     <div><input type="reset"></div>
@@ -161,10 +168,12 @@ $(document).ready(function(){
     const $fetch = $('#fetch');
  $(".esconder").hide();
  $(".enviar").click(function(){
+    $(".esconder2").hide();
     let recoger = $(".name").val();
     $(".esconder").show();
+    $(".texto").append("Encantada " + '<span class="colorName">' + recoger + '</span>' + ", a continuacion realizaremos una serie de preguntas para informarme de las pelis mas interesantes que hayais visto." + "</br>" + "Gracias por su participacion");
      
-     $(".texto").append("Encantada " + recoger + ", a continuacion realizaremos una serie de preguntas para informarme de las pelis mas interesantes que hayais visto." + "</br>" + "Gracias por su participacion");
+
      
  })
   $submit.click(function(e){
@@ -173,13 +182,15 @@ $(document).ready(function(){
     const inputData = {
     name: $('.name').val(),
     PeliMala: $('.PeliMala').val(),
-    pelis: {
-      puntuacion: $('.puntuacion').val(),
+    pelis1: {
+      puntuacion1: $('.puntuacion1').val(),
+      estrellas : parseInt ($('option[name=estrellas]:checked').val())
      
     },
     PeliFav: $('.PeliFav').val(),
-    pelis: {
-      puntuacion: $('.puntuacion').val(),
+    pelis2: {
+      puntuacion2: $('.puntuacion2').val(),
+      puntuaciones : parseInt ($('option[name=puntuaciones]:checked').val())
      
     },
     Destacar: $('.msg').val()
@@ -207,8 +218,10 @@ $fetch.click(function() {
             Object.values(data).map(function(response) {
               $('#responsesContainer')
               .append(`<h3>${response.name}</h3>`)
-              .append(`<li>PeliMala: ${response.pelis.puntuacion}</li>`)
-              .append(`<li>PeliFav: ${response.pelis.puntuacion}</li>`);
+              .append(`<li>PeliFav: ${response.PeliFav}, ${response.pelis2.puntuacion2}</li>`)
+              .append(`<li>PeliMala: ${response.PeliMala}, ${response.pelis1.puntuacion1}</li>`)
+              .append(`<li>Comentarios: ${response.Destacar}</li>`)
+              
             });
             
             
