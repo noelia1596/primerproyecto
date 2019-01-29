@@ -184,7 +184,7 @@ $(document).ready(function(){
     message: $('.msg').val()
   }
     $.ajax({
-        url: 'https://noelia1596.github.io/primerproyecto/',
+        url: 'https://proyecto-primero-73ae9.firebaseio.com/.json',
         type: "POST",
         data: JSON.stringify(inputData),
         success: function (data) {
@@ -199,7 +199,7 @@ $(document).ready(function(){
 $fetch.click(function() {
     $('#fetch').hide();
   $.ajax({
-        url: 'https://noelia1596.github.io/primerproyecto/',
+        url: 'https://proyecto-primero-73ae9.firebaseio.com/.json',
         type: "GET",
         success: function (data) {
             $('#formulario').hide();
