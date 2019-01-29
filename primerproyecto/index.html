@@ -137,7 +137,7 @@ input[type="submit"], input[type="reset"] {
     </div>
    
   <div>
-    <label for="msg">Algo a destacar:</label>
+    <label for="msg">Destacar:</label>
     <textarea class="msg" name="user_message"></textarea>
   </div>
     <div><input type="submit" value="Submit"></div>
@@ -157,7 +157,8 @@ input[type="submit"], input[type="reset"] {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
 $(document).ready(function(){
-  
+    const $submit = $('input[type="submit"]');
+    const $fetch = $('#fetch');
  $(".esconder").hide();
  $(".enviar").click(function(){
     let recoger = $(".name").val();
@@ -181,14 +182,13 @@ $(document).ready(function(){
       puntuacion: $('.puntuacion').val(),
      
     },
-    message: $('.msg').val()
+    Destacar: $('.msg').val()
   }
     $.ajax({
         url: 'https://proyecto-primero-73ae9.firebaseio.com/.json',
         type: "POST",
         data: JSON.stringify(inputData),
         success: function (data) {
-        console.log(data);
         alert('Su formulario ha sido enviado');
         },
         error: function(error) {
